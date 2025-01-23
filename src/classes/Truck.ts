@@ -20,7 +20,7 @@ class Truck extends Vehicle implements AbleToTow {
   year: number;
   weight: number;
   topSpeed: number;
-  wheels: Wheel[];
+  wheels: Wheel[] = [];
   towingCapacity: number;
 
   // TODO: Create a constructor that accepts the properties of the Truck class

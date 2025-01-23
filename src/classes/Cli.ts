@@ -193,8 +193,8 @@ class Cli {
           parseInt(answers.year),
           parseInt(answers.weight),
           parseInt(answers.topSpeed),
-          wheels,
-          parseInt(answers.towingCapacity)
+          [new Wheel(), new Wheel(), new Wheel(), new Wheel()],
+          parseInt(answers.towingCapacity),
         );
         
 
@@ -268,15 +268,6 @@ class Cli {
       .then((answers) => {
 
         // TODO: Use the answers object to pass the required properties to the Motorbike constructor
-        const frontWheel = new Wheel(
-          parseInt(answers.frontWheelDiameter),
-          answers.frontWheelBrand
-        );
-        const rearWheel = new Wheel(
-          parseInt(answers.rearWheelDiameter),
-          answers.rearWheelBrand
-        );
-
         const motorbike = new Motorbike(
           Cli.generateVin(),
           answers.color,
@@ -287,10 +278,8 @@ class Cli {
           parseInt(answers.weight),
           parseInt(answers.topSpeed),
 
-          frontWheel,
-          rearWheel
-        );
-
+          [new Wheel(parseInt(answers.frontWheelDiameter), answers.frontWheelBrand), new Wheel(parseInt(answers.rearWheelDiameter), answers.rearWheelBrand)]
+        )
         // TODO: push the motorbike to the vehicles array
         this.vehicles.push(motorbike);
 
@@ -333,7 +322,7 @@ class Cli {
                   this.performActions();
         } else {
         // TODO: if it is not, tow the selected vehicle then perform actions on the truck to allow the user to select another action
-        console.log("UH OH! Vehicle is being towed :(");
+        console.log("UH OH! Vehicle is being towed");
         this.performActions();
         }
       });
