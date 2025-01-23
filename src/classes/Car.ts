@@ -1,3 +1,6 @@
+//Maya Li Bauer
+//Cli.ts
+//January 23, 2025
 // Importing Vehicle and Wheel classes
 import Vehicle from './Vehicle.js';
 import Wheel from './Wheel.js';
@@ -36,6 +39,7 @@ class Car extends Vehicle {
     this.year = year;
     this.weight = weight;
     this.topSpeed = topSpeed;
+    
     // Check if the wheels array has 4 elements
     // If not, create 4 new Wheel objects
     // Otherwise, use the provided wheels array
