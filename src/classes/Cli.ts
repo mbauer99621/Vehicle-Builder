@@ -330,6 +330,7 @@ class Cli {
 
   // method to perform actions on a vehicle
   performActions(): void {
+    
     inquirer
       .prompt([
         {
@@ -413,11 +414,10 @@ class Cli {
           }
         }
         // TODO: add statements to perform the tow action only if the selected vehicle is a truck. 
-        if (answers.action === 'Tow') {
-          const selectedV = this.vehicles.find(
+        else if (answers.action === 'Tow') {
+
             //set the vehicle vin to the selected vehicle vin so we are referring to the correct one
-            (vehicle) => vehicle.vin === this.selectedVehicleVin
-          )
+          const selectedV = this.vehicles.find(v => v.vin === this.selectedVehicleVin);
         
         // Call the findVehicleToTow method to find a vehicle to tow and pass the selected truck as an argument.
         //we are finding a vehicle to tow that is NOT a truck
@@ -430,22 +430,38 @@ class Cli {
         }else {
           console.log("BEEP BEEP. The vehicle selected is not a truck. You must select a truck to tow!");
         }
+        this.startCli();
+        return;
       }
+
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
-        if (answers.action === 'Wheelie') {
-          console.log('You did a Wheelie! WOOOOOOOOO')
-          // start the cli to return to the initial prompt if the user wants to select or create another vehicle
-          this.startCli();
-          return;
+            // Perform actions on a vehicle
+      else if (answers.action === 'Wheelie') {
+        const selectedV = this.vehicles.find(v => v.vin === this.selectedVehicleVin);
+
+        // Check if the selected vehicle is a Motorbike
+        if (selectedV instanceof Motorbike) {
+          console.log('You did a Wheelie! WOOOOOOOOO');
         } else {
-          // exit the cli if the user selects exit
-          this.exit = true;
+          console.log('Not a Motorbike');
         }
-        if (!this.exit) {
-          // if the user does not want to exit, perform actions on the selected vehicle
+
+        // Return to the initial CLI prompt
+        this.startCli();
+        return;
+      }
+      else {
+        // Handle other actions or exit     //or is it answers.action?
+        if (answers.action === 'Exit') {
+          // Exit the CLI if the user selects 'Exit'
+          console.log('Exiting the program...');
+          process.exit(0);
+        } else {
+          // Handle other actions or continue performing actions on the selected vehicle
           this.performActions();
         }
-      }); //end then
+      }
+    }); //end then
   } //end perform action
 
   // method to start the cli
@@ -469,6 +485,9 @@ class Cli {
         }
       });
   }
+  
+
+  
 }
 
 // export the Cli class
